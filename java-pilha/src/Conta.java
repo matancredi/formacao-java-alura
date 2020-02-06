@@ -36,19 +36,32 @@ public abstract class Conta {
 	//	this.saldo = this.saldo + valor;
 	//}
 	
-	public void saca(double valor) {
+//	O return false dessa função simplesmente diz que o saque não funcionou, sem especificar o motivo. Podemos pensar em uma forma mais fácil para descrever os motivos, trocando o tipo de retorno de boolean para int. Assim, podemos atribuir:
+//
+//		número 1 se saca() funcionar;
+//		um valor negativo para especificar o motivo, se o saca() não funcionar. Por exemplo:
+//		-1 pode representar domingo;
+//		-2 pode representar sábado;
+//		-3 pode representar o limite diário e assim por diante.
+//		Mas essa programação voltada ao primitivo não cheira muito bem. No mundo Java, exceções possuem nomes, são objetos e classes!
+	
+	public boolean saca(double valor) {
 		if (valor <= this.saldo) {
 			this.saldo -= valor;
-			// return true;
+			return true;
 		} else {
-			// return false;
-			throw new SaldoInsuficienteException("Saldo: "+ this.saldo + "Valor: " + valor);
+			return false;
 		}
 	}
 	
-	public void transfere(double valor, Conta contaDestino) {
-		this.saca(valor);
-		contaDestino.deposita(valor);
+	public boolean transfere(double valor, Conta contaDestino) {
+		if (this.saldo >= valor) {
+			this.saca(valor);
+			contaDestino.deposita(valor);
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	public double getSaldo() {
