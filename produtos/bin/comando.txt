@@ -1,0 +1,2 @@
+Comando usado para criar esse projeto:
+mvn archetype:generate -DartifactId=produtos -DgroupId=br.com.alura.maven -DinteractiveMode=false -DarchetypeArtifactId=maven-archetype-quickstart
